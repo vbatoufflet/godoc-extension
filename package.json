@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "build": "web-ext build --overwrite-dest",
+    "clean": "rm -rf web-ext-artifacts/",
+    "firefox": "web-ext run --firefox=nightly",
+    "lint": "web-ext lint"
+  },
+  "devDependencies": {
+    "web-ext": "*"
+  }
+}

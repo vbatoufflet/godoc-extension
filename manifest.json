@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "GoDoc",
+  "version": "0.1.1",
+  "description": "Go to GoDoc documentation pages",
+  "icons": {
+    "48": "icon.svg",
+    "96": "icon.svg"
+  },
+  "background": {
+    "scripts": [
+      "script.js"
+    ]
+  },
+  "commands": {
+    "_execute_page_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+G"
+      }
+    }
+  },
+  "page_action": {
+    "default_icon": {
+      "48": "icon.svg",
+      "96": "icon.svg"
+    },
+    "default_title": "Go to GoDoc"
+  },
+  "permissions": [
+    "tabs"
+  ]
+}
