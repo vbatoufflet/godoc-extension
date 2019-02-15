@@ -1,8 +1,8 @@
 "use strict";
 
 const matchPatterns = {
-    "*://bitbucket.org/*/src/*.go?*": "(bitbucket.org/(?:[^/]+/){2})src/[^/]+/(.*?)/?[^/]+.go",
-    "*://github.com/*/blob/*.go": "(github.com/(?:[^/]+/){2})blob/[^/]+/(.*?)/?[^/]+.go",
+    "*://bitbucket.org/*": "(bitbucket.org/(?:[^/]+/){2})src/[^/]+/(.*?)/?[^/]+.go",
+    "*://github.com/*": "(github.com/(?:[^/]+/){2})blob/[^/]+/(.*?)/?[^/]+.go",
 };
 
 const matchRegExp = new RegExp(Object.values(matchPatterns).join("|"));
@@ -16,12 +16,17 @@ browser.pageAction.onClicked.addListener((tab) => {
     browser.tabs.update(tab.id, {url: `https://godoc.org/${matches.join("")}`});
 });
 
-browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (!tab.active || tab.status != "complete") {
-        return;
+browser.tabs.onUpdated.addListener((tabId, changeInfo) => {
+    if (changeInfo.url) {
+        let match = new URL(changeInfo.url).pathname.endsWith(".go")
+        if (match) {
+            browser.pageAction.show(tabId);
+        } else {
+            browser.pageAction.hide(tabId);
+        }
+    } else if (changeInfo.status == "loading") {
+        browser.pageAction.hide(tabId);
     }
-
-    browser.pageAction.show(tab.id);
 }, {
     urls: Object.keys(matchPatterns),
     properties: [
