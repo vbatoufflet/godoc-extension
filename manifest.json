@@ -28,5 +28,20 @@
   },
   "permissions": [
     "tabs"
-  ]
+  ],
+  "applications": {
+    "gecko": {
+      "strict_min_version": "57.0"
+    }
+  },
+  "chrome_settings_overrides": {
+    "search_provider": {
+      "name": "GoDoc",
+      "search_url": "https://godoc.org/?q={searchTerms}",
+      "keyword": "@godoc",
+      "favicon_url": "https://godoc.org/favicon.ico",
+      "is_default": false,
+      "encoding": "UTF-8"
+    }
+  }
 }
